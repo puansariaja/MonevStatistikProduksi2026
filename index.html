@@ -26,13 +26,41 @@
 .table-wrap{overflow:auto}.table{width:100%;border-collapse:collapse;font-size:12px;min-width:850px}.table th{background:#f8fafc;text-align:left;color:#475569;font-size:11px;text-transform:uppercase;padding:11px;border-bottom:1px solid var(--line);white-space:nowrap}.table td{padding:11px;border-bottom:1px solid #edf0f3;vertical-align:middle}.table tr:hover{background:#f8fbff}.badge{display:inline-block;border-radius:20px;padding:4px 8px;font-size:10px;font-weight:700}.badge.good{background:#dcfce7;color:#166534}.badge.warn{background:#fef3c7;color:#92400e}.badge.bad{background:#fee2e2;color:#991b1b}.mini-progress{height:6px;width:100px;background:#e5e7eb;border-radius:5px;display:inline-block;vertical-align:middle;overflow:hidden;margin-right:6px}.mini-progress span{display:block;height:100%;background:var(--accent)}
 .detail{display:grid;grid-template-columns:1fr 1fr;gap:18px}.kpi-list{display:grid;grid-template-columns:1fr 1fr;gap:10px}.small-kpi{border:1px solid var(--line);border-radius:10px;padding:12px}.small-kpi b{display:block;font-size:18px}.small-kpi span{font-size:10px;color:var(--muted)}.footer{text-align:center;padding:30px;color:var(--muted);font-size:11px}
 @media(max-width:1000px){.cards{grid-template-columns:repeat(2,1fr)}.grid,.detail{grid-template-columns:1fr}}@media(max-width:600px){.cards{grid-template-columns:1fr}.header-inner{align-items:flex-start;flex-direction:column}.container{padding:0 12px}.brand h1{font-size:18px}}
+#loginOverlay{position:fixed;inset:0;background:linear-gradient(135deg,var(--primary2),var(--primary));display:flex;align-items:center;justify-content:center;z-index:100;padding:16px}
+.login-box{background:#fff;border-radius:16px;padding:34px 30px;width:100%;max-width:360px;box-shadow:0 10px 40px #0004}
+.login-box .logo{width:54px;height:54px;border-radius:12px;background:var(--bg);color:var(--primary);display:grid;place-items:center;font-weight:800;font-size:22px;margin:0 auto 14px}
+.login-box h2{text-align:center;margin:0 0 4px;font-size:19px}
+.login-box p{text-align:center;color:var(--muted);font-size:12px;margin:0 0 20px}
+.login-box label{display:block;font-size:12px;font-weight:700;color:var(--muted);margin-bottom:6px}
+.login-box .field{margin-bottom:14px}
+.login-box input{width:100%;border:1px solid #d1d5db;border-radius:9px;padding:11px 12px;font-size:14px}
+.login-box button{width:100%;margin-top:6px;padding:12px;font-size:14px}
+.login-error{background:#fee2e2;color:#991b1b;font-size:12px;border-radius:8px;padding:9px 11px;margin-bottom:14px;display:none}
+.login-hint{margin-top:16px;font-size:11px;color:var(--muted);text-align:center;line-height:1.6}
+.logout-btn{background:rgba(255,255,255,.18);color:#fff;font-size:12px;padding:8px 12px}
+#appContent{display:none}
 </style>
 </head>
 <body>
-<header class="header"><div class="header-inner"><div class="brand"><div class="logo">BPS</div><div><h1>Dashboard Monitoring Kegiatan Survei</h1><p>Monitoring progres target dan realisasi kegiatan survei</p></div></div><div class="date" id="today"></div></div></header>
+
+<div id="loginOverlay">
+  <div class="login-box">
+    <div class="logo">BPS</div>
+    <h2>Login Pegawai</h2>
+    <p>Masuk untuk mengakses Dashboard Monitoring Kegiatan Survei</p>
+    <div id="loginError" class="login-error">Username atau password salah. Silakan coba lagi.</div>
+    <div class="field"><label>Username / NIP</label><input type="text" id="loginUser" placeholder="Masukkan username" autocomplete="username"></div>
+    <div class="field"><label>Password</label><input type="password" id="loginPass" placeholder="Masukkan password" autocomplete="current-password"></div>
+    <button onclick="doLogin()">Masuk</button>
+    <div class="login-hint">Akun demo: <b>admin</b> / <b>bps2026</b><br>Khusus pegawai BPS yang berwenang.</div>
+  </div>
+</div>
+
+<div id="appContent">
+<header class="header"><div class="header-inner"><div class="brand"><div class="logo">BPS</div><div><h1>Dashboard Monitoring Kegiatan Survei</h1><p>Monitoring progres target dan realisasi kegiatan survei</p></div></div><div style="display:flex;align-items:center;gap:14px"><div><div class="date" id="today"></div><div style="font-size:12px;opacity:.85" id="whoAmI"></div></div><button class="logout-btn" onclick="doLogout()">Keluar</button></div></div></header>
 <main class="container">
 <section class="toolbar">
-<div class="field"><label>Tahun</label><select id="yearFilter"><option value="2026">2026</option><option value="2025">2025</option><option value="2024">2024</option></select></div>
+<div class="field"><label>Tahun</label><select id="yearFilter" onchange="applyFilter()"><option value="2026">2026</option><option value="2025">2025</option><option value="2024">2024</option></select></div>
 <div class="field"><label>Survei</label><select id="surveyFilter"><option value="all">Semua Survei</option><option>SE2026</option><option>STPIM</option><option>SKGB</option><option>IMK Tahunan</option><option>Sakernas</option></select></div>
 <div class="field"><label>Kabupaten/Kota</label><select id="kabFilter"><option value="all">Semua Kabupaten/Kota</option><option>Bangka</option><option>Belitung</option><option>Bangka Barat</option><option>Bangka Tengah</option><option>Bangka Selatan</option><option>Belitung Timur</option><option>Pangkalpinang</option></select></div>
 <div class="field"><label>Periode Bulan</label><select id="monthFilter"><option value="all">Januari–Desember</option><option value="1">Januari</option><option value="2">Februari</option><option value="3">Maret</option><option value="4">April</option><option value="5">Mei</option><option value="6">Juni</option><option value="7">Juli</option><option value="8">Agustus</option><option value="9">September</option><option value="10">Oktober</option><option value="11">November</option><option value="12">Desember</option></select></div>
@@ -69,6 +97,20 @@
 <div class="panel"><h2>Capaian Kumulatif</h2><div class="desc">Posisi realisasi kumulatif dibandingkan target kumulatif.</div><div class="donut-wrap"><div style="position:relative"><div class="donut"></div><div class="donut-text" id="donutText">91,5%<small>capaian</small></div></div><div class="legend-list"><div><span class="swatch" style="background:var(--primary)"></span>Realisasi: <b id="donutActual">8.145</b></div><div><span class="swatch" style="background:#dbeafe"></span>Sisa target: <b id="donutRemain">755</b></div><div>Status: <span class="badge good">Terkendali</span></div></div></div></div>
 </section>
 
+<section class="panel" style="margin-bottom:18px">
+  <h2>Grafik Capaian per Bulan (%)</h2>
+  <div class="desc">Persentase realisasi terhadap target setiap bulan (realisasi ÷ target × 100%).</div>
+  <div class="chart" style="height:260px">
+    <div class="yaxis"><span>100%</span><span>75%</span><span>50%</span><span>25%</span><span>0%</span></div>
+    <div class="bars" id="capaianBars"></div>
+  </div>
+  <div class="legend">
+    <span><i class="dot" style="background:var(--good)"></i>≥95% Sangat Baik</span>
+    <span><i class="dot" style="background:var(--warn)"></i>80–94% Terkendali</span>
+    <span><i class="dot" style="background:var(--bad)"></i>&lt;80% Perlu Perhatian</span>
+  </div>
+</section>
+
 <section class="panel" style="margin-bottom:18px"><h2>Rekap Total Sampel per Survei</h2><div class="desc">Menampilkan target, realisasi, dan persentase capaian berdasarkan jenis survei.</div><div class="table-wrap"><table class="table"><thead><tr><th>Survei</th><th>Total Sampel</th><th>Target Kumulatif</th><th>Realisasi</th><th>Capaian</th><th>Status</th></tr></thead><tbody id="surveyTable"></tbody></table></div></section>
 
 <section class="panel" style="margin-bottom:18px"><h2>Rekap Total Sampel per Kabupaten/Kota</h2><div class="desc">Memudahkan pimpinan melihat distribusi beban sampel dan progres setiap wilayah.</div><div class="table-wrap"><table class="table"><thead><tr><th>Kabupaten/Kota</th><th>Total Sampel</th><th>Target Kumulatif</th><th>Realisasi</th><th>Capaian</th><th>Status</th></tr></thead><tbody id="kabTable"></tbody></table></div></section>
@@ -78,6 +120,7 @@
 <div class="panel"><h2>Catatan Monitoring</h2><div class="desc">Area ini dapat digunakan untuk menampilkan alert otomatis.</div><ul style="font-size:12px;line-height:1.8;padding-left:20px"><li>Wilayah dengan capaian di bawah 80% perlu pemantauan lebih lanjut.</li><li>Bandingkan realisasi bulanan dengan target sebelum melakukan tindak lanjut.</li><li>Gunakan data kumulatif untuk melihat posisi terhadap target akhir.</li><li>Detail progres dapat dikembangkan sampai level petugas/sampel.</li></ul></div>
 </section>
 </main><footer class="footer">Prototype Dashboard Monitoring Kegiatan Survei • Terhubung ke Google Apps Script/API.</footer>
+</div>
 
 <script>
 /* ================================
@@ -95,6 +138,66 @@ let surveys=[
  ['SE2026',4200,3150,2950],['STPIM',2100,1850,1730],['SKGB',1250,1020,960],['IMK Tahunan',1900,1550,1420],['Sakernas',3000,1330,1085]
 ];
 let kabs=[['Bangka',2100,1550,1450],['Belitung',1700,1240,1150],['Bangka Barat',1650,1190,1080],['Bangka Tengah',1700,1210,1110],['Bangka Selatan',1800,1280,1170],['Belitung Timur',1650,1180,1085],['Pangkalpinang',1850,1250,1100]];
+
+// Data dasar (baseline tahun 2026) — dipakai untuk mensimulasikan Filter Tahun
+// selama Apps Script belum mengirim dataset per-tahun yang sebenarnya.
+const baseMonthlyTarget = monthlyTarget.slice();
+const baseMonthlyActual = monthlyActual.slice();
+const baseSurveys = surveys.map(r=>r.slice());
+const baseKabs = kabs.map(r=>r.slice());
+const yearFactors = {2026:1, 2025:0.9, 2024:0.78};
+
+function applyYearScaling(year){
+  const f = yearFactors[year] ?? 1;
+  monthlyTarget.splice(0, monthlyTarget.length, ...baseMonthlyTarget.map(v=>Math.round(v*f)));
+  monthlyActual.splice(0, monthlyActual.length, ...baseMonthlyActual.map(v=>Math.round(v*f*(f<1?0.97:1))));
+  surveys.splice(0, surveys.length, ...baseSurveys.map(r=>[r[0], Math.round(r[1]*f), Math.round(r[2]*f), Math.round(r[3]*f)]));
+  kabs.splice(0, kabs.length, ...baseKabs.map(r=>[r[0], Math.round(r[1]*f), Math.round(r[2]*f), Math.round(r[3]*f)]));
+}
+
+// ================================
+// LOGIN PEGAWAI
+// ================================
+const pegawaiList = [
+  {user:'admin', pass:'bps2026', name:'Administrator'},
+  {user:'kasi.ipds', pass:'ipds123', name:'Kasi IPDS'},
+  {user:'kabid.statistik', pass:'statistik123', name:'Kabid Statistik'}
+];
+
+function doLogin(){
+  const u = document.getElementById('loginUser').value.trim();
+  const p = document.getElementById('loginPass').value;
+  const found = pegawaiList.find(x=>x.user===u && x.pass===p);
+  const err = document.getElementById('loginError');
+  if(found){
+    err.style.display='none';
+    document.getElementById('loginOverlay').style.display='none';
+    document.getElementById('appContent').style.display='block';
+    document.getElementById('whoAmI').textContent = 'Masuk sebagai: ' + found.name;
+    try{ sessionStorage.setItem('bpsLoggedInUser', found.name); }catch(e){}
+  } else {
+    err.style.display='block';
+  }
+}
+
+function doLogout(){
+  document.getElementById('appContent').style.display='none';
+  document.getElementById('loginOverlay').style.display='flex';
+  document.getElementById('loginUser').value='';
+  document.getElementById('loginPass').value='';
+  try{ sessionStorage.removeItem('bpsLoggedInUser'); }catch(e){}
+}
+
+(function restoreSession(){
+  try{
+    const name = sessionStorage.getItem('bpsLoggedInUser');
+    if(name){
+      document.getElementById('loginOverlay').style.display='none';
+      document.getElementById('appContent').style.display='block';
+      document.getElementById('whoAmI').textContent = 'Masuk sebagai: ' + name;
+    }
+  }catch(e){}
+})();
 
 async function loadFilteredFromAppsScript() {
   const params = new URLSearchParams({
@@ -175,11 +278,9 @@ function renderBars(){
   const el=document.getElementById('bars');
   el.innerHTML='';
   
-  // Menghitung nilai maksimum bulanan untuk skala grafik Y
   const maxVal = Math.max(...monthlyTarget, ...monthlyActual, 100);
   const yMax = Math.ceil(maxVal / 100) * 100;
   
-  // Memperbarui label Sumbu Y
   document.getElementById('ymax').textContent = fmt(yMax);
   document.getElementById('ymid2').textContent = fmt(yMax * 0.75);
   document.getElementById('ymid1').textContent = fmt(yMax * 0.5);
@@ -210,6 +311,38 @@ function renderBars(){
   });
 }
 
+function renderCapaianChart(){
+  const el = document.getElementById('capaianBars');
+  if(!el) return;
+  el.innerHTML='';
+  months.forEach((m,i)=>{
+    const target = monthlyTarget[i] || 0;
+    const actual = monthlyActual[i] || 0;
+    const rate = target ? (actual/target*100) : 0;
+    const st = status(rate);
+    const color = st[1]==='good' ? 'var(--good)' : st[1]==='warn' ? 'var(--warn)' : 'var(--bad)';
+
+    const wrap=document.createElement('div');
+    wrap.className='month';
+    const group=document.createElement('div');
+    group.className='bar-group';
+
+    const b=document.createElement('div');
+    b.className='bar';
+    b.style.width='26px';
+    b.style.background=color;
+    b.title = `Capaian ${m}: ${rate.toFixed(1)}% (${fmt(actual)} dari ${fmt(target)})`;
+    b.style.height = Math.min(rate,100) + '%';
+
+    group.append(b);
+    const label=document.createElement('span');
+    label.className='month-name';
+    label.textContent=m;
+    wrap.append(group,label);
+    el.append(wrap);
+  });
+}
+
 function tableRows(data){return data.map(x=>{let rate=x[2]?x[3]/x[2]*100:0;let st=status(rate);return `<tr><td><b>${x[0]}</b></td><td>${fmt(x[1])}</td><td>${fmt(x[2])}</td><td>${fmt(x[3])}</td><td><span class="mini-progress"><span style="width:${Math.min(rate,100)}%"></span></span>${rate.toFixed(1)}%</td><td><span class="badge ${st[1]}">${st[0]}</span></td></tr>`}).join('')}
 function renderTables(){document.getElementById('surveyTable').innerHTML=tableRows(surveys);document.getElementById('kabTable').innerHTML=tableRows(kabs)}
 
@@ -218,7 +351,12 @@ function applyFilter(){
         s=document.getElementById('surveyFilter').value,
         k=document.getElementById('kabFilter').value,
         m=document.getElementById('monthFilter').value;
-        
+
+  applyYearScaling(Number(y));
+  renderBars();
+  renderTables();
+  renderCapaianChart();
+
   let factor=m==='all'?1:(Number(m)/9);
   if(m!=='all'){factor=Math.min(factor,1)}
   
