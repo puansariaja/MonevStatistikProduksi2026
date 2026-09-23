@@ -4,8 +4,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Monitoring Kegiatan Survei - BPS</title>
-<style>
-:root{--primary:#0b5cab;--primary2:#083d77;--accent:#14b8a6;--bg:#f4f7fb;--card:#fff;--text:#1f2937;--muted:#6b7280;--line:#e5e7eb;--good:#16a34a;--warn:#f59e0b;--bad:#dc2626}
+<style>:root{
+  --primary: #ea580c;   /* Warna oranye utama (Header, Bar Grafik, Tombol) */
+  --primary2: #c2410c;  /* Warna oranye tua (Gradasi Header) */
+  --accent: #f97316;    /* Warna oranye cerah (Progress Bar) */
+  --bg: #fff7ed;        /* Warna latar belakang halaman (Krem/Oranye sangat muda) */
+  --card: #ffffff;      /* Warna latar kartu/panel (Putih) */
+  --text: #1f2937;      /* Warna teks utama (Abu-abu gelap) */
+  --muted: #6b7280;     /* Warna teks sekunder (Abu-abu sedang) */
+  --line: #fed7aa;      /* Warna garis/border (Oranye muda terang) */
+  --good: #16a34a;      /* Warna hijau (Status Sangat Baik/Sukses) */
+  --warn: #eab308;      /* Warna kuning (Status Peringatan/Terkendali) */
+  --bad: #dc2626;       /* Warna merah (Status Bahaya/Perlu Perhatian) */
+}
 *{box-sizing:border-box}body{margin:0;font-family:Inter,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--text)}
 .header{background:linear-gradient(135deg,var(--primary2),var(--primary));color:#fff;padding:22px 34px;position:sticky;top:0;z-index:20;box-shadow:0 3px 14px #0002}.header-inner{max-width:1450px;margin:auto;display:flex;justify-content:space-between;align-items:center;gap:20px}.brand{display:flex;align-items:center;gap:14px}.logo{width:46px;height:46px;border-radius:12px;background:#fff;color:var(--primary);display:grid;place-items:center;font-weight:800;font-size:20px}.brand h1{font-size:22px;margin:0}.brand p{margin:3px 0 0;opacity:.8;font-size:13px}.date{font-size:13px;opacity:.9}
 .container{max-width:1450px;margin:24px auto;padding:0 22px}.toolbar{background:var(--card);padding:16px;border:1px solid var(--line);border-radius:14px;display:flex;flex-wrap:wrap;gap:12px;align-items:end;margin-bottom:18px}.field{display:flex;flex-direction:column;gap:6px;min-width:180px;flex:1}.field label{font-size:12px;font-weight:700;color:var(--muted)}select,input{border:1px solid #d1d5db;border-radius:9px;padding:10px 12px;background:#fff;font-size:14px;color:var(--text)}button{border:0;border-radius:9px;padding:10px 15px;background:var(--primary);color:#fff;font-weight:700;cursor:pointer}button.secondary{background:#eaf2fb;color:var(--primary)}
