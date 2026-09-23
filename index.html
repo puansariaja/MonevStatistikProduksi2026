@@ -1,5 +1,4 @@
-# Save the file updated with Year Filter and Monthly (Non-Cumulative) Chart implementation
-updated_html = """<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
 <meta charset="UTF-8">
@@ -20,9 +19,9 @@ updated_html = """<!DOCTYPE html>
 }
 *{box-sizing:border-box}body{margin:0;font-family:Inter,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--text)}
 .header{background:linear-gradient(135deg,var(--primary2),var(--primary));color:#fff;padding:22px 34px;position:sticky;top:0;z-index:20;box-shadow:0 3px 14px #0002}.header-inner{max-width:1450px;margin:auto;display:flex;justify-content:space-between;align-items:center;gap:20px}.brand{display:flex;align-items:center;gap:14px}.logo{width:46px;height:46px;border-radius:12px;background:#fff;color:var(--primary);display:grid;place-items:center;font-weight:800;font-size:20px}.brand h1{font-size:22px;margin:0}.brand p{margin:3px 0 0;opacity:.8;font-size:13px}.date{font-size:13px;opacity:.9}
-.container{max-width:1450px;margin:24px auto;padding:0 22px}.toolbar{background:var(--card);padding:16px;border:1px solid var(--line);border-radius:14px;display:flex;flex-wrap:wrap;gap:12px;align-items:end;margin-bottom:18px}.field{display:flex;flex-direction:column;gap:6px;min-width:160px;flex:1}.field label{font-size:12px;font-weight:700;color:var(--muted)}select,input{border:1px solid #d1d5db;border-radius:9px;padding:10px 12px;background:#fff;font-size:14px;color:var(--text)}button{border:0;border-radius:9px;padding:10px 15px;background:var(--primary);color:#fff;font-weight:700;cursor:pointer}button.secondary{background:#eaf2fb;color:var(--primary)}
+.container{max-width:1450px;margin:24px auto;padding:0 22px}.toolbar{background:var(--card);padding:16px;border:1px solid var(--line);border-radius:14px;display:flex;flex-wrap:wrap;gap:12px;align-items:end;margin-bottom:18px}.field{display:flex;flex-direction:column;gap:6px;min-width:150px;flex:1}.field label{font-size:12px;font-weight:700;color:var(--muted)}select,input{border:1px solid #d1d5db;border-radius:9px;padding:10px 12px;background:#fff;font-size:14px;color:var(--text)}button{border:0;border-radius:9px;padding:10px 15px;background:var(--primary);color:#fff;font-weight:700;cursor:pointer}button.secondary{background:#eaf2fb;color:var(--primary)}
 .cards{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-bottom:18px}.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;box-shadow:0 2px 8px #0b5cab08}.card .label{color:var(--muted);font-size:12px;font-weight:700;text-transform:uppercase}.metric{font-size:29px;font-weight:800;margin:7px 0}.sub{font-size:12px;color:var(--muted)}.progress{height:8px;background:#edf0f4;border-radius:10px;overflow:hidden;margin-top:10px}.progress span{display:block;height:100%;background:var(--accent);border-radius:10px}
-.grid{display:grid;grid-template-columns:1.35fr .65fr;gap:18px;margin-bottom:18px}.panel{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px;overflow:hidden}.panel h2{font-size:17px;margin:0 0 5px}.panel .desc{font-size:12px;color:var(--muted);margin-bottom:15px}.chart{height:330px;display:flex;align-items:stretch;gap:12px;padding:20px 10px 28px;border-top:1px solid var(--line)}.yaxis{width:38px;display:flex;flex-direction:column;justify-content:space-between;color:#9ca3af;font-size:10px}.bars{flex:1;display:flex;align-items:stretch;justify-content:space-around;gap:8px}.month{flex:1;display:flex;align-items:flex-end;justify-content:center;position:relative;border-bottom:1px solid #dfe4ea}.bar-group{height:100%;display:flex;align-items:flex-end;gap:4px}.bar{width:18px;border-radius:4px 4px 0 0;min-height:2px}.target{background:#cbd5e1}.actual{background:var(--primary)}.month-name{position:absolute;bottom:-22px;font-size:10px;color:var(--muted)}.legend{display:flex;gap:18px;font-size:11px;color:var(--muted);margin-top:8px}.dot{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:5px}.dot.target{background:#cbd5e1}.dot.actual{background:var(--primary)}
+.grid{display:grid;grid-template-columns:1.35fr .65fr;gap:18px;margin-bottom:18px}.panel{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px;overflow:hidden}.panel h2{font-size:17px;margin:0 0 5px}.panel .desc{font-size:12px;color:var(--muted);margin-bottom:15px}.chart{height:330px;display:flex;align-items:stretch;gap:12px;padding:20px 10px 28px;border-top:1px solid var(--line)}.yaxis{width:42px;display:flex;flex-direction:column;justify-content:space-between;color:#9ca3af;font-size:10px;text-align:right;padding-right:6px}.bars{flex:1;display:flex;align-items:stretch;justify-content:space-around;gap:8px}.month{flex:1;display:flex;align-items:flex-end;justify-content:center;position:relative;border-bottom:1px solid #dfe4ea}.bar-group{height:100%;display:flex;align-items:flex-end;gap:4px}.bar{width:18px;border-radius:4px 4px 0 0;min-height:2px}.target{background:#cbd5e1}.actual{background:var(--primary)}.month-name{position:absolute;bottom:-22px;font-size:10px;color:var(--muted)}.legend{display:flex;gap:18px;font-size:11px;color:var(--muted);margin-top:8px}.dot{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:5px}.dot.target{background:#cbd5e1}.dot.actual{background:var(--primary)}
 .donut-wrap{display:flex;align-items:center;justify-content:center;gap:20px;height:250px}.donut{width:170px;height:170px;border-radius:50%;background:conic-gradient(var(--primary) 0 72%,#dbeafe 72% 100%);display:grid;place-items:center}.donut:after{content:'';width:108px;height:108px;border-radius:50%;background:#fff}.donut-text{position:absolute;text-align:center;font-weight:800;font-size:25px}.donut-text small{display:block;font-size:10px;color:var(--muted);font-weight:500}.legend-list{font-size:12px}.legend-list div{margin:10px 0}.swatch{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:7px}
 .table-wrap{overflow:auto}.table{width:100%;border-collapse:collapse;font-size:12px;min-width:850px}.table th{background:#f8fafc;text-align:left;color:#475569;font-size:11px;text-transform:uppercase;padding:11px;border-bottom:1px solid var(--line);white-space:nowrap}.table td{padding:11px;border-bottom:1px solid #edf0f3;vertical-align:middle}.table tr:hover{background:#f8fbff}.badge{display:inline-block;border-radius:20px;padding:4px 8px;font-size:10px;font-weight:700}.badge.good{background:#dcfce7;color:#166534}.badge.warn{background:#fef3c7;color:#92400e}.badge.bad{background:#fee2e2;color:#991b1b}.mini-progress{height:6px;width:100px;background:#e5e7eb;border-radius:5px;display:inline-block;vertical-align:middle;overflow:hidden;margin-right:6px}.mini-progress span{display:block;height:100%;background:var(--accent)}
 .detail{display:grid;grid-template-columns:1fr 1fr;gap:18px}.kpi-list{display:grid;grid-template-columns:1fr 1fr;gap:10px}.small-kpi{border:1px solid var(--line);border-radius:10px;padding:12px}.small-kpi b{display:block;font-size:18px}.small-kpi span{font-size:10px;color:var(--muted)}.footer{text-align:center;padding:30px;color:var(--muted);font-size:11px}
@@ -36,7 +35,7 @@ updated_html = """<!DOCTYPE html>
 <div class="field"><label>Tahun</label><select id="yearFilter"><option value="2026">2026</option><option value="2025">2025</option><option value="2024">2024</option></select></div>
 <div class="field"><label>Survei</label><select id="surveyFilter"><option value="all">Semua Survei</option><option>SE2026</option><option>STPIM</option><option>SKGB</option><option>IMK Tahunan</option><option>Sakernas</option></select></div>
 <div class="field"><label>Kabupaten/Kota</label><select id="kabFilter"><option value="all">Semua Kabupaten/Kota</option><option>Bangka</option><option>Belitung</option><option>Bangka Barat</option><option>Bangka Tengah</option><option>Bangka Selatan</option><option>Belitung Timur</option><option>Pangkalpinang</option></select></div>
-<div class="field"><label>Periode</label><select id="monthFilter"><option value="all">Januari–Desember</option><option value="1">Januari</option><option value="2">Februari</option><option value="3">Maret</option><option value="4">April</option><option value="5">Mei</option><option value="6">Juni</option><option value="7">Juli</option><option value="8">Agustus</option><option value="9">September</option><option value="10">Oktober</option><option value="11">November</option><option value="12">Desember</option></select></div>
+<div class="field"><label>Periode Bulan</label><select id="monthFilter"><option value="all">Januari–Desember</option><option value="1">Januari</option><option value="2">Februari</option><option value="3">Maret</option><option value="4">April</option><option value="5">Mei</option><option value="6">Juni</option><option value="7">Juli</option><option value="8">Agustus</option><option value="9">September</option><option value="10">Oktober</option><option value="11">November</option><option value="12">Desember</option></select></div>
 <button onclick="applyFilter(); loadFilteredFromAppsScript()">Terapkan Filter</button><button class="secondary" onclick="resetFilter()">Reset</button>
 </section>
 
@@ -49,7 +48,24 @@ updated_html = """<!DOCTYPE html>
 </section>
 
 <section class="grid">
-<div class="panel"><h2>Progres Target vs Realisasi Bulanan (Murni / Non-Kumulatif)</h2><div class="desc">Jumlah sampel target vs realisasi khusus pada masing-masing bulan (bukan akumulasi).</div><div class="chart"><div class="yaxis"><span id="ymax">1.500</span><span id="ymid2">1.125</span><span id="ymid1">750</span><span id="ymid0">375</span><span>0</span></div><div class="bars" id="bars"></div></div><div class="legend"><span><i class="dot target"></i>Target Bulan Ini</span><span><i class="dot actual"></i>Realisasi Bulan Ini</span></div></div>
+<div class="panel">
+  <h2>Progres Target vs Realisasi Bulanan (Jumlah Sampel Murni)</h2>
+  <div class="desc">Perbandingan beban sampel target dan realisasi khusus per bulan (bukan kumulatif).</div>
+  <div class="chart">
+    <div class="yaxis">
+      <span id="ymax">1.500</span>
+      <span id="ymid2">1.125</span>
+      <span id="ymid1">750</span>
+      <span id="ymid0">375</span>
+      <span>0</span>
+    </div>
+    <div class="bars" id="bars"></div>
+  </div>
+  <div class="legend">
+    <span><i class="dot target"></i>Target Bulan Ini</span>
+    <span><i class="dot actual"></i>Realisasi Bulan Ini</span>
+  </div>
+</div>
 <div class="panel"><h2>Capaian Kumulatif</h2><div class="desc">Posisi realisasi kumulatif dibandingkan target kumulatif.</div><div class="donut-wrap"><div style="position:relative"><div class="donut"></div><div class="donut-text" id="donutText">91,5%<small>capaian</small></div></div><div class="legend-list"><div><span class="swatch" style="background:var(--primary)"></span>Realisasi: <b id="donutActual">8.145</b></div><div><span class="swatch" style="background:#dbeafe"></span>Sisa target: <b id="donutRemain">755</b></div><div>Status: <span class="badge good">Terkendali</span></div></div></div></div>
 </section>
 
@@ -62,6 +78,7 @@ updated_html = """<!DOCTYPE html>
 <div class="panel"><h2>Catatan Monitoring</h2><div class="desc">Area ini dapat digunakan untuk menampilkan alert otomatis.</div><ul style="font-size:12px;line-height:1.8;padding-left:20px"><li>Wilayah dengan capaian di bawah 80% perlu pemantauan lebih lanjut.</li><li>Bandingkan realisasi bulanan dengan target sebelum melakukan tindak lanjut.</li><li>Gunakan data kumulatif untuk melihat posisi terhadap target akhir.</li><li>Detail progres dapat dikembangkan sampai level petugas/sampel.</li></ul></div>
 </section>
 </main><footer class="footer">Prototype Dashboard Monitoring Kegiatan Survei • Terhubung ke Google Apps Script/API.</footer>
+
 <script>
 /* ================================
    KONFIGURASI GOOGLE APPS SCRIPT
@@ -70,7 +87,7 @@ const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw_VzwIyzfR0EKZ
 
 const months=['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
 
-// Data target dan realisasi MURNI PER BULAN (Bukan % Kumulatif)
+// Target dan Realisasi murni per bulan (Sampel Fisik, bukan %)
 let monthlyTarget = [800, 900, 1000, 1100, 1200, 1250, 1300, 1350, 1300, 1100, 800, 600];
 let monthlyActual = [750, 880, 980, 1050, 1180, 1200, 1280, 1320, 1300, 0, 0, 0];
 
@@ -158,11 +175,11 @@ function renderBars(){
   const el=document.getElementById('bars');
   el.innerHTML='';
   
-  // Mencari nilai maksimum untuk penskalaan grafik tinggi bar
+  // Menghitung nilai maksimum bulanan untuk skala grafik Y
   const maxVal = Math.max(...monthlyTarget, ...monthlyActual, 100);
-  const yMax = Math.ceil(maxVal / 100) * 100; // Pembulatan ke kelipatan 100 terdekat
+  const yMax = Math.ceil(maxVal / 100) * 100;
   
-  // Update Y-Axis labels
+  // Memperbarui label Sumbu Y
   document.getElementById('ymax').textContent = fmt(yMax);
   document.getElementById('ymid2').textContent = fmt(yMax * 0.75);
   document.getElementById('ymid1').textContent = fmt(yMax * 0.5);
@@ -176,12 +193,12 @@ function renderBars(){
     
     const t=document.createElement('div');
     t.className='bar target';
-    t.title = `Target ${m}: ${fmt(monthlyTarget[i])}`;
+    t.title = `Target ${m}: ${fmt(monthlyTarget[i])} sampel`;
     t.style.height = ((monthlyTarget[i] / yMax) * 100) + '%';
     
     const a=document.createElement('div');
     a.className='bar actual';
-    a.title = `Realisasi ${m}: ${fmt(monthlyActual[i])}`;
+    a.title = `Realisasi ${m}: ${fmt(monthlyActual[i])} sampel`;
     a.style.height = ((monthlyActual[i] / yMax) * 100) + '%';
     
     group.append(t,a);
@@ -231,7 +248,7 @@ function applyFilter(){
   document.getElementById('donutText').innerHTML=rate.toFixed(1).replace('.',',')+'%<small>capaian</small>';
   document.getElementById('donutActual').textContent=fmt(actual);
   document.getElementById('donutRemain').textContent=fmt(Math.max(target-actual,0));
-  document.querySelector('.donut').style.background=`conic-gradient(var(--primary) 0 ${Math.min(rate,100)}%,#dbeafe ${Math.min(rate,100)}% 100%)`
+  document.querySelector('.donut').style.background=`conic-gradient(var(--primary) 0 ${Math.min(rate,100)}%,#dbeafe ${Math.min(rate,100)}% 100%)`;
 }
 
 function resetFilter(){
@@ -248,10 +265,6 @@ renderTables();
 applyFilter();
 setConnectionStatus('Menghubungkan ke Google Apps Script…', false);
 loadFromAppsScript();
-</script></body></html>
-"""
-
-with open("index_updated.html", "w", encoding="utf-8") as f:
-    f.write(updated_html)
-
-print("File berhasil dibuat!")
+</script>
+</body>
+</html>
